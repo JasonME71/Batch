@@ -10,14 +10,14 @@ SET lvl =%9
 
 :start
 SET /a NRGY=%NRGY% + 1
-choice /an /n /m "Do you want to use an [A]bility, or a [N]ormal attack?"
+choice /c an /n /m "Do you want to use an [A]bility, or a [N]ormal attack?"
   if  %errorlevel%==1 goto AbilityAttack
-  if  %errorlevel%==2 goto NormAtack
+  if  %errorlevel%==2 goto NormAttack
 :AbilityAttack
-if %PlayerClass% = HunterBattle
-if %PlayerClass% = ArcherBattle
-if %PlayerClass% = MageBattle
-if %PlayerClass% = PaladinBattle
+if %PlayerClass% == Hunter goto HunterBattle
+if %PlayerClass% == Archer goto ArcherBattle
+if %PlayerClass% == Mage goto MageBattle
+if %PlayerClass% == Paladin goto PaladinBattle
 
 :HunterBattle
 call HunterSkills

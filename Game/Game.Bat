@@ -21,7 +21,7 @@ SET /p PlayerName=Please enter your desired name:
 
 
 
-choice /c YN /n /m “Are you sure you want %PlayerName% to be your name? [Y] [N]”
+choice /c YN /n /m "Are you sure you want %PlayerName% to be your name? [Y] [N]"
     If %errorlevel%==1 goto CharacterCreationStep2
     If %errorlevel%==2 goto CharacterCreation
 Echo be sure to enter your options exactly as offered
@@ -56,7 +56,7 @@ Echo +2 Base Energy
 Echo -5 Base Armor
 Echo ABILITY: Slip_Gate, teleport behind your target and deal a critical hit
 Echo ABILITY: Blood_Letting, Heal yourself for 50 percent weapon damage and gain 1 energy
-choice /c YN /n /m “Are you sure you want this to be your class? [Y] [N]”
+choice /c YN /n /m "Are you sure you want this to be your class? [Y] [N]"
   If %errorlevel%==1 goto ClassHunterYes
   If %erorlevel%==2 goto CharacterCreationStep2
 Echo be sure to enter your choices exactly as shown
@@ -79,7 +79,7 @@ Echo +5 Base Energy
 Echo +0 Base Armor
 Echo ABILITY: Shadow_Shot, Fire a deadly arrow from the shadows, dealing 2x damage
 Echo ABILITY: Leaching_Flame, Alight your enemy in flame, dealing damage and healing you
-choice /c YN /n /m “Are you sure you want this to be you’r class? [Y] [N]”
+choice /c YN /n /m "Are you sure you want this to be you’r class? [Y] [N]"
   If %errorlevel%==1 goto ClassArcherYes
   If %errorlevel%==2 goto CharacterCreationStep2
 Echo be sure to enter your choices exactly as shown
@@ -103,7 +103,7 @@ Echo +10 Base Energy
 Echo +10 Base Armor
 Echo ABILITY: Vampyric_Touch, steals 15 percent of an enemies hp, and heals you for the same amount
 Echo ABILITY: Gorgons_Ray, Instantly deals 3x weapon damage, and restores 3 energy
-choice /c YN / /m  “Are you sure you want his to be your class? [Y] [N]”
+choice /c YN / /m  "Are you sure you want his to be your class? [Y] [N]"
   If %errorlevel%==1 goto ClassMageYes
   If %errorlevel%==2 goto CharacterCreationStep2
 Echo be sure to enter your choices exactly as shown
@@ -127,7 +127,7 @@ Echo +3 Base Energy
 Echo +75 Base Armor
 Echo ABILITY: Blazing_Light, Heals for a decent amount and restores 2 energy
 Echo ABILITY: Piercing_Spear, Deals 2x weapon damage + 50 percent of your armor
-Choice /c YN /n /m “Are you sure you want this to be your class? [Y] [N]” 
+Choice /c YN /n /m "Are you sure you want this to be your class? [Y] [N]" 
   If %errorlevel%==1 goto ClassPaladinYes
   If %errorlevel%==2 goto CharacterCreationStep2
 Echo be sure to enter your choices exactly as shown
@@ -145,7 +145,11 @@ Goto GameStart
 
 :GameStart
 cls
-choice /c SIP /n /m (“Choose a starting point to learn about. [S]outhern Hills, [I]ron Temple, Shattered [P]lains”)
+choice /c SIP /n /m ("Choose a starting point to learn about. [S]outhern Hills, [I]ron Temple, Shattered [P]lains")
+  If %errorlevel%==3 set StartEnvirement=Shattered_Planes
+  If %errorlevel%==2 set StartEnvirement=Iron_Temple
+  If %errorlevel%==1 set StartEnvirement=Southern_Hills
+
   If %StartEnvirement%==Southern_Hills goto Southern_Hills_Lore
   If %StartEnvirement%==Iron_Temple goto Iron_Temple_Lore
   If %StartEnvirement%==Shattered_Planes goto Shattered_Planes_Lore
@@ -153,7 +157,6 @@ Echo be sure to enter your response exactly as shown
 Pause >nul
 Cls
 Goto GameStart
-
 
 :Southern_Hills_Lore
 Echo People once lived in advanced times, where one could create in meal in seconds
@@ -168,7 +171,7 @@ Timeout 2 >NUL
 Echo This is most likely the reason nobody tries to pick a fight with us.
 Timeout 3 >NUL
 Echo If you choose this envirement you receive +5 attack damage
-choice /c YR /n /m “Would you like to choose this zone, or Return to selection? [Y] [R]
+choice /c YR /n /m "Would you like to choose this zone, or Return to selection? [Y] [R]"
  If %errorlevel%==1 goto Southern_Hills_Start
  If %errorlevel%==2 goto GameStart
 
@@ -190,8 +193,8 @@ echo *Walking...*
 timeout 5 >nul
 echo Aye there %PlayerName%, I got you your sword. It deals about 52 DMG, looks like you can hit about %wep%.
 choice /c YN /n /m  "You sure you still want this sword? [Y] [N]"
-  if %errorlevel%=1 goto WepYes
-  if %errorlevel%=2 goto WepNo
+  if %errorlevel%==1 goto WepYes
+  if %errorlevel%==2 goto WepNo
 
 :WepYes
 echo Good on ya lad, see ya around.
@@ -241,7 +244,7 @@ Echo But something weird has been happening lately, we keep getting reports of p
 timeout 3 >nu
 Echo mad. I suspect it may be magic, but the King feels it is just a sickness.
 Pause >NUL
-Choice  /c YR /n /m “Do you want this to be your starting envirement or Return to selection? [Y] [R]
+Choice  /c YR /n /m "Do you want this to be your starting envirement or Return to selection? [Y] [R]"
   If %errorlevel%==1 goto Iron_Temple_Start
   If %errorlevel%==2 goto GameStart
 :Iron_Temple_Start
@@ -324,7 +327,7 @@ Echo and also made the magnificent Iron Temple
 timeout 5 >nul
 Echo You get +5 energy if you start in the Shattered Plains
 Pause >NUL
-Choice /c YR /n /m “Do you want to select this zone, or Return to selection? [Y] [R]
+Choice /c YR /n /m "Do you want to select this zone, or Return to selection? [Y] [R]"
   If %errorlevel%==1 goto Shattered_Plains_Start
   If %errorlevel%==1 goto GameStart
  
